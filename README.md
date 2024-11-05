@@ -1,7 +1,7 @@
 # Shapes
 
 <div align="center">
-  <img src="public/og/og-default.png" alt="Shapes Game" width="600"/>
+  <img src="public/media/og/og-default.png" alt="Shapes Game" width="600"/>
 </div>
 
 A daily puzzle game built on Starknet where players identify individual shapes that make up compound images. Each day brings a new set of challenging puzzles where you'll need quick thinking and pattern recognition to score high!
