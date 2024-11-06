@@ -1,8 +1,8 @@
 // src/utils/gameUtils.ts
 
-export function generateShapeOptions(compoundShape: number[], seed: string): number[] {
+export function generateShapeOptions(compoundShape: number[], seed: string, gameIndex: number): number[] {
     // Convert seed to BigInt, regardless of input type
-    const seedBigInt: bigint = BigInt(seed);
+    const seedBigInt: bigint = BigInt(seed) + BigInt(gameIndex);
   
     let randomState = seedBigInt;
     const random = () => {

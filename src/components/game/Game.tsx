@@ -58,7 +58,7 @@ export default function Game({ initialRound }: GameProps) {
     if (gameState.gameData.length > 0 && gameState.currentRound < gameState.gameData.length) {
       const newCompoundShape = gameState.gameData[gameState.currentRound].map(n => Number(n))
       actions.setCurrentCompoundShape(newCompoundShape)
-      const shapeOptions = generateShapeOptions(newCompoundShape, gameIdData)
+      const shapeOptions = generateShapeOptions(newCompoundShape, gameIdData, gameState.currentRound)
       actions.setCurrentShapeOptions(shapeOptions)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
