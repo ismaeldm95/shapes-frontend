@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
+import { ENVIRONMENT } from "@/config"
 import { Twitter } from 'lucide-react'
 import Link from 'next/link'
 
@@ -42,7 +43,7 @@ export default function GameCompleted({
           size="default"
           className="flex items-center gap-2 text-primary border-primary hover:bg-primary hover:text-primary-foreground"
           onClick={() => {
-            const text = `Shapes${gameIndex? ' #'+gameIndex : ''}: ${score} points! Play this daily puzzle game on @Starknet at shapes-starknet.xyz`
+            const text = `Shapes${gameIndex? ' #'+gameIndex : ''}: ${score} points! Play this daily puzzle game on @Starknet at ${ENVIRONMENT.PROD_URL}`
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank')
           }}
         >
