@@ -31,7 +31,7 @@ export function useGameTimestamp() {
       const timestampInMs = Number(timestamp) * 1000
       const now = Date.now()
       const diff = now - timestampInMs
-      let hoursDiff = diff / (1000 * 60 * 60)
+      const hoursDiff = Math.floor(diff / (1000 * 60 * 60))
       setNeedsUpdate(hoursDiff >= 24)
     }
   }, [timestamp])

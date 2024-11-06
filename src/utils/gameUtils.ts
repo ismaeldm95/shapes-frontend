@@ -2,11 +2,11 @@
 
 export function generateShapeOptions(compoundShape: number[], seed: string): number[] {
     // Convert seed to BigInt, regardless of input type
-    let seedBigInt: bigint = BigInt(seed);
+    const seedBigInt: bigint = BigInt(seed);
   
     let randomState = seedBigInt;
     const random = () => {
-      randomState = (randomState * 1103515245n + 12345n) & 0x7fffffffn;
+      randomState = (randomState * BigInt(1103515245) + BigInt(12345)) & BigInt(0x7fffffff);
       return Number(randomState) / 2147483647;
     };
   

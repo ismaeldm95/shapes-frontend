@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { StarknetIdNavigator } from "starknetid.js"
 import { useProvider, useNetwork } from "@starknet-react/core"
 import { constants } from "starknet"
-import Image from "next/image"
 import CircleAvatar from './CircleAvatar'
 
 interface GameHeaderProps {
@@ -34,29 +33,13 @@ export default function GameHeader({ address, rightText, style }: GameHeaderProp
       try {
         const starknetIdNavigator = new StarknetIdNavigator(
           provider,
-          chain.id as constants.StarknetChainId
+          constants.StarknetChainId.SN_MAIN
         )
 
-        // Get starkname first
-        const starkName = await starknetIdNavigator.getStarkName(address)
+        const starkProfile = await starknetIdNavigator.getProfileData(address, false)
         
-        if (starkName) {
-          // Get complete profile data if starkname exists
-          const profile = await starknetIdNavigator.getProfileData(starkName)
-          
-          // Get profile picture
-          let profilePicture = "/placeholder.svg"
-          try {
-            profilePicture = await starknetIdNavigator.getProfilePicture(starkName)
-          } catch (error) {
-            console.warn("Failed to fetch profile picture:", error)
-          }
-
-          setProfileData({ 
-            ...profile,
-            name: starkName,
-            profilePicture
-          })
+        if (starkProfile) {
+          setProfileData(starkProfile)
         }
       } catch (error) {
         console.error("Error fetching StarknetID data:", error)
@@ -64,7 +47,7 @@ export default function GameHeader({ address, rightText, style }: GameHeaderProp
     }
 
     // Only fetch on mainnet
-    if (chain?.name.toLowerCase().includes('mainnet')) {
+    if (!chain?.testnet) {
       fetchStarknetId()
     }
   }, [provider, chain, address])
@@ -81,7 +64,9 @@ export default function GameHeader({ address, rightText, style }: GameHeaderProp
         <div className="flex items-center space-x-4">
           <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary-foreground">
             {profileData.profilePicture ? (
-              <Image
+              // Urls from starknetID can be very different, NextJS Image component doesn't work with non preknown urls
+              // eslint-disable-next-line @next/next/no-img-element 
+              <img
                 src={profileData.profilePicture}
                 alt="Profile"
                 width={40}

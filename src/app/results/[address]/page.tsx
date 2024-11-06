@@ -17,6 +17,15 @@ interface GameResult {
   score: string;
 }
 
+type GameData = [
+  bigint | number,  // gameId
+  bigint | number,  // gameIndex
+  bigint | number,  // timestamp
+  number[][],       // gameSolution
+  number[][],       // accountSolution
+  bigint | number  // score
+]
+
 export default function ResultsPage() {
   const { address } = useParams<{ address: string }>()
   const [results, setResults] = useState<GameResult[]>([])
@@ -31,7 +40,7 @@ export default function ResultsPage() {
 
   useEffect(() => {
     if (allGamesData) {
-      const formattedResults = allGamesData.map((game: any) => ({
+      const formattedResults = allGamesData.map((game: GameData) => ({
         gameId: game[0].toString(),
         gameIndex: game[1].toString(),
         timestamp: new Date(Number(game[2]) * 1000).toLocaleString(),

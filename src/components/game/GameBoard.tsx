@@ -15,7 +15,8 @@ interface GameBoardProps {
   isRoundActive: boolean
   isRoundEnded: boolean
   isVerticalLayout: boolean
-  onShapeSelect: (shapeId: number) => void
+  // eslint-disable-next-line no-unused-vars
+  onShapeSelect: ( shapeId: number) => void
   componentSize: { width: number | string, height: string }
   contentComponentPadding: number
 }

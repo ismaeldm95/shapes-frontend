@@ -10,7 +10,7 @@ import {
   transactionStatusAtom,
   pendingTransactionsAtom
 } from '@/store'
-import { TIMING_CONFIG, TRANSACTION_CONFIG } from '@/config'
+import { TRANSACTION_CONFIG } from '@/config'
 
 export function useGameState(initialRound: number | null) {
   // Jotai atoms
@@ -37,6 +37,7 @@ export function useGameState(initialRound: number | null) {
     if (initialRound !== null && currentRound !== initialRound) {
       setCurrentRound(initialRound)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialRound])
 
   const handleTimerEnd = useCallback(() => {
@@ -60,7 +61,8 @@ export function useGameState(initialRound: number | null) {
     } else if (TRANSACTION_CONFIG.MODE == 'immediate') {
       setPendingTransactions([selectedShapes])
     }
-  }, [currentCompoundShape, selectedShapes, currentRound])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentCompoundShape, selectedShapes, currentRound, setFeedback, setPendingTransactions, setScore])
 
   const handleNextRound = useCallback(() => {
     setSelectedShapes([])
@@ -71,7 +73,7 @@ export function useGameState(initialRound: number | null) {
     setIsRoundEnded(false)
     setIsPreRoundCountdown(true)
     setIsRoundActive(false)
-  }, [])
+  }, [setSelectedShapes, setCurrentRound, setTimerKey, setTransactionStatus, setShowFeedback, setIsRoundEnded, setIsPreRoundCountdown, setIsRoundActive])
 
   return {
     gameState: {

@@ -25,7 +25,7 @@ export function useGameLayout() {
     window.addEventListener('resize', handleResize)
     handleResize()
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [headerHeight, footerHeight])
 
   const contentHeight = windowSize.height - 128
   const contentWidth = windowSize.width

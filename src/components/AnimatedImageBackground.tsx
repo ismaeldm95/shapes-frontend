@@ -19,7 +19,6 @@ interface ImageObject {
 interface AnimatedImageBackgroundProps {
   images: ImageObject[]
   triggerAnimation: boolean
-  animationDuration?: number
   className?: string
   style?: React.CSSProperties
 }
@@ -27,7 +26,6 @@ interface AnimatedImageBackgroundProps {
 export default function AnimatedImageBackground({
   images,
   triggerAnimation,
-  animationDuration = 1,
   className = '',
   style = {},
 }: AnimatedImageBackgroundProps) {
@@ -48,7 +46,7 @@ export default function AnimatedImageBackground({
     const imageY = parseFloat(image.position.top as string)
     
     const angle = Math.atan2(imageY - centerY, imageX - centerX)
-    const distance = 150 // Adjust this value to change how far off-screen the images start/end
+    const distance = 250 // Adjust this value to change how far off-screen the images start/end
 
     return {
       x: Math.cos(angle) * distance,
@@ -72,11 +70,11 @@ export default function AnimatedImageBackground({
       y: 0,
       rotate: image.rotation || 0,
       transition: {
+        delay: 0.5,
         type: 'spring',
         stiffness: 100,
-        damping: 15,
-        mass: 1,
-        duration: animationDuration,
+        damping: 20,
+        mass: 2,
       },
     }),
     exit: (image: ImageObject) => {
@@ -91,7 +89,6 @@ export default function AnimatedImageBackground({
           stiffness: 100,
           damping: 15,
           mass: 1,
-          duration: animationDuration,
         },
       }
     },

@@ -21,7 +21,6 @@ export default function Game({ initialRound }: GameProps) {
   const { gameState, actions } = useGameState(initialRound)
   const { 
     address, 
-    contract,
     compoundShapesData, 
     txData,
     txStatus,
@@ -40,29 +39,30 @@ export default function Game({ initialRound }: GameProps) {
 
   useEffect(() => {
     actions.setTransactionStatus(txStatus)
-  }, [txStatus, txData])
+  }, [txStatus, txData, actions])
 
   useEffect(() => {
     if (transactionReceipt && transactionReceipt.isSuccess()) {
       actions.setPendingTransactions([])
       actions.handleNextRound()
     }
-  }, [transactionReceipt])
+  }, [transactionReceipt, actions])
 
   useEffect(() => {
     if (compoundShapesData) {
       actions.setGameData(compoundShapesData as number[][])
     }
-  }, [compoundShapesData])
+  }, [compoundShapesData, actions])
 
   useEffect(() => {
     if (gameState.gameData.length > 0 && gameState.currentRound < gameState.gameData.length) {
       const newCompoundShape = gameState.gameData[gameState.currentRound].map(n => Number(n))
       actions.setCurrentCompoundShape(newCompoundShape)
-      const shapeOptions = generateShapeOptions(newCompoundShape,gameIdData )
+      const shapeOptions = generateShapeOptions(newCompoundShape, gameIdData)
       actions.setCurrentShapeOptions(shapeOptions)
     }
-  }, [gameState.gameData, gameState.currentRound])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState.gameData, gameState.currentRound, gameIdData])
 
   const handleShapeSelection = useCallback((shapeId: number) => {
     actions.setSelectedShapes(prev => {
@@ -72,7 +72,7 @@ export default function Game({ initialRound }: GameProps) {
         return [...prev, shapeId]
       }
     })
-  }, [])
+  }, [actions])
 
   const handleSubmitRound = async () => {
     if (TRANSACTION_CONFIG.MODE === 'batched') {
@@ -100,7 +100,7 @@ export default function Game({ initialRound }: GameProps) {
   const handlePreRoundCountdownComplete = useCallback(() => {
     actions.setIsPreRoundCountdown(false)
     actions.setIsRoundActive(true)
-  }, [])
+  }, [actions])
 
   if (gameState.gameData.length === 0) {
     return <div className="flex items-center justify-center h-screen">Loading game data...</div>

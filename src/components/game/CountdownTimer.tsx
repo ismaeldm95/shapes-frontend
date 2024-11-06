@@ -6,14 +6,12 @@ interface CountdownTimerProps {
   duration: number
   onTimerEnd: () => void
   fillColor?: string
-  backgroundColor?: string
 }
 
 export default function CountdownTimer({
   duration,
   onTimerEnd,
   fillColor = 'bg-primary',
-  backgroundColor = 'bg-muted'
 }: CountdownTimerProps) {
   const [timeLeft, setTimeLeft] = useState(duration)
   const timerRef = useRef<NodeJS.Timeout | null>(null)

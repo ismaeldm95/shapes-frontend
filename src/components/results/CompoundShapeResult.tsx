@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 interface CompoundShapeResultProps {
   shapes: number[]
@@ -25,14 +26,19 @@ export default function CompoundShapeResult({ shapes, userShapes }: CompoundShap
     <div className="flex flex-col items-center">
       <div className="w-20 h-20 relative">
         {shapes.map((shape, index) => (
-          <img
-            key={index}
-            src={`/media/shapes/shape_${shape}.png`}
-            alt={`Shape ${shape}`}
-            className={`absolute top-0 left-0 w-full h-full object-contain
-              ${userShapes.includes(shape) ? 'opacity-100' : 'opacity-50'}`}
+          <div 
+            key={index} 
+            className="absolute inset-0"
             style={{ zIndex: index }}
-          />
+          >
+            <Image
+              src={`/media/shapes/shape_${shape}.png`}
+              alt={`Shape ${shape}`}
+              fill
+              className={`object-contain ${userShapes.includes(shape) ? 'opacity-100' : 'opacity-50'}`}
+              priority
+            />
+          </div>
         ))}
       </div>
       <span className="mt-2 text-sm text-muted-foreground font-semibold">

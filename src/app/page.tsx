@@ -25,7 +25,7 @@ export default function GamePage() {
   const [showBackgroundAnimation, setShowBackgroundAnimation] = useState(true)
   const [landingImages, setLandingImages] = useState<LandingImage[]>(DESKTOP_LANDING_IMAGES)
   const { needsUpdate, isCheckingTimestamp, updateGame } = useGameTimestamp()
-  const { gameIndex, isLoading: isLoadingGameIndex, error: gameIndexError } = useGameIndex()
+  const { gameIndex } = useGameIndex()
   const { chain } = useNetwork()
   
  
@@ -55,7 +55,7 @@ export default function GamePage() {
   })
 
 
-  const { data: getScoreData, isLoading: isLoadingGetScore } = useReadContract({
+  const { data: getScoreData} = useReadContract({
     functionName: "getScore",
     args: address && gameId
       ? [address.toString(), gameId.toString()] // Convert gameId to string
@@ -127,10 +127,6 @@ export default function GamePage() {
     
     // Then start the game
     setGameStarted(true)
-  }
-
-  const isUniqueShapeOptions = (shapeOptions: number[]) => {
-    return shapeOptions.length === new Set(shapeOptions).size
   }
 
   const renderContent = () => {
@@ -233,7 +229,6 @@ export default function GamePage() {
           <AnimatedImageBackground
             images={landingImages} // Use dynamic images here
             triggerAnimation={showBackgroundAnimation}
-            animationDuration={1.5}
             className="w-full h-full"
           />
         )}

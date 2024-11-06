@@ -1,17 +1,16 @@
 "use client";
-import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
-import { useMemo } from "react";
-import { useStarknetkitConnectModal } from "starknetkit";
-import { Button } from "@/components/ui/button";
+import { useAccount, useConnect } from "@starknet-react/core";
+import { StarknetkitConnector, useStarknetkitConnectModal } from "starknetkit";
+// import { Button } from "@/components/ui/button";
 
 function WalletConnected() {
-  const { address } = useAccount();
-  const { disconnect } = useDisconnect();
+  // const { address } = useAccount();
+  // const { disconnect } = useDisconnect();
 
-  const shortenedAddress = useMemo(() => {
-    if (!address) return "";
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
-  }, [address]);
+  // const shortenedAddress = useMemo(() => {
+  //   if (!address) return "";
+  //   return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  // }, [address]);
 
   return (
     <div className="flex items-center space-x-4">
@@ -30,7 +29,7 @@ function WalletConnected() {
 function ConnectWallet() {
   const { connectors, connect } = useConnect();
   const { starknetkitConnectModal } = useStarknetkitConnectModal({
-    connectors: connectors
+    connectors: connectors as StarknetkitConnector[]
   })
    
   async function connectWallet() {

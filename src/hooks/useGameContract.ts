@@ -1,5 +1,5 @@
 import { useContract, useAccount, useSendTransaction, useTransactionReceipt, useReadContract } from "@starknet-react/core"
-import { CONTRACTS, GAME_CONFIG, TRANSACTION_CONFIG } from '@/config'
+import { CONTRACTS, GAME_CONFIG } from '@/config'
 import { pendingTransactionsAtom } from '@/store'
 import { useAtom } from "jotai"
 
@@ -29,7 +29,7 @@ export function useGameContract() {
   })
 
 
-  const { send: sendTransaction, data: txData, status: txStatus, error } = useSendTransaction({
+  const { send: sendTransaction, data: txData, status: txStatus } = useSendTransaction({
     calls: contract && address
       ? GAME_CONFIG.MODE === 'batched' ? 
         [contract.populate("solveAll", [pendingTransactions])]

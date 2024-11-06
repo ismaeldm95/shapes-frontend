@@ -61,10 +61,10 @@ export default function WelcomeScreen({ onStartGame, lastPlayedIndex }: WelcomeS
               onClick={() => setShowRules(false)}
             />
             <motion.div
-              initial={{ scale: 0.7, opacity: 0, y: "-40%", x: "-50%" }}
+              initial={{ scale: 0.9, opacity: 0, y: "-40%", x: "-50%" }}
               animate={{ scale: 1, opacity: 1, y: "-50%", x: "-50%" }}
-              exit={{ scale: 0.7, opacity: 0, y: "-50%", x: "-50%" }}
-              transition={{ type: "spring", bounce: 0.4 }}
+              exit={{ scale: 0.9, opacity: 0, y: "-50%", x: "-50%" }}
+              transition={{ type: "spring", stiffness: 200, damping: 20, mass: 1}}
               className="fixed top-1/2 left-1/2 bg-background rounded-lg shadow-lg
                 w-[min(calc(100vw-2rem),24rem)] overflow-hidden max-h-[calc(100vh-2rem)]"
             >
@@ -83,7 +83,7 @@ export default function WelcomeScreen({ onStartGame, lastPlayedIndex }: WelcomeS
                 <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-muted-foreground">
                   <p>1. Select the individual shapes from the grid that make up the big image.</p>
                   <div className="flex flex-col gap-2">
-                    <p>3. You have {SECONDS_PER_SHAPE} seconds to make your selections. Then, you'll see outlined:</p>
+                    <p>3. You have {SECONDS_PER_SHAPE} seconds to make your selections. Then, you&apos;ll see outlined:</p>
                     <div className="flex items-center gap-2 pl-4">
                       <div className="w-3 h-3 rounded-full bg-green-500"></div>
                       <span>Shape is correct, +1 point</span>

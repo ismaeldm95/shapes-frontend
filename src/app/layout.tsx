@@ -17,7 +17,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(ENVIRONMENT.PROD_URL),
-  title: 'Shapes: a Starknet exploration',
+  title: 'Shapes',
   description: `Solve ${GAME_CONFIG.SHAPES_PER_GAME} shapes, once a day`,
   keywords: ['shapes', 'starknet', 'game', 'exploration'],
   icons: {

@@ -7,6 +7,7 @@ import {
   publicProvider,
   voyager,
   jsonRpcProvider,
+  Connector,
 } from "@starknet-react/core";
 import { InjectedConnector } from "starknetkit/injected";
 import { WebWalletConnector } from "starknetkit/webwallet";
@@ -41,11 +42,13 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
     new WebWalletConnector({ url: process.env.NEXT_PUBLIC_WEB_WALLET_URL })
   ];
  
+  const starknetConnectors = connectors as unknown as Connector[]
+
   return (
     <StarknetConfig
       chains={getChains()}
       provider={getProvider()}
-      connectors={connectors}
+      connectors={starknetConnectors}
       explorer={voyager}
     >
       {children}

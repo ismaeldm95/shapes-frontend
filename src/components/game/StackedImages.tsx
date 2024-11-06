@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 interface StackedImagesProps {
   shapes: number[]
@@ -16,13 +17,15 @@ export default function StackedImages({
                     rounded-lg shadow-lg flex items-center justify-center overflow-hidden`}>
       {shapes.length > 0 ? (
         shapes.map((shape, index) => (
-          <img
-            key={index}
-            src={`/media/shapes/shape_${shape}.png`}
-            alt={`Stacked image ${index + 1}`}
-            className="absolute max-w-full max-h-full w-full h-full object-contain"
-            style={{ zIndex: index }}
-          />
+          <div key={index} className="absolute inset-0" style={{ zIndex: index }}>
+            <Image
+              src={`/media/shapes/shape_${shape}.png`}
+              alt={`Stacked image ${index + 1}`}
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
         ))
       ) : (
         <div className="text-gray-400 text-center p-4">
@@ -35,48 +38,6 @@ export default function StackedImages({
       {/* <div className="absolute top-0 left-0 text-black text-xs" >
               {"shapes:" + shapes.map(shape => shape)}
       </div> */}
-    </div>
-  )
-}
-
-function StackedImagesExample() {
-  const exampleImages = [
-    '/placeholder.svg?height=200&width=200&text=Layer%201',
-    '/placeholder.svg?height=200&width=200&text=Layer%202',
-    '/placeholder.svg?height=200&width=200&text=Layer%203',
-  ]
-
-  return (
-    <div className="p-4 space-y-8">
-      <h2 className="text-2xl font-bold mb-4">Stacked Images Example</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <StackedImages images={exampleImages} />
-        <StackedImages images={exampleImages} borderColor="border-blue-300" shadowColor="shadow-blue-400" />
-        <StackedImages images={exampleImages} borderColor="border-green-300" shadowColor="shadow-green-400" />
-        <StackedImages borderColor="border-red-300" shadowColor="shadow-red-400" />
-      </div>
-    </div>
-  )
-}
-
-function Component() {
-  const myImages = [
-    '/placeholder.svg?height=200&width=200&text=Custom%201',
-    '/placeholder.svg?height=200&width=200&text=Custom%202',
-    '/placeholder.svg?height=200&width=200&text=Custom%203',
-  ]
-
-  return (
-    <div className="space-y-8 p-4">
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Custom Stacked Images</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <StackedImages images={myImages} borderColor="border-purple-300" shadowColor="shadow-purple-400" />
-          <StackedImages borderColor="border-yellow-300" shadowColor="shadow-yellow-400" />
-          <StackedImages images={myImages.slice(0, 2)} borderColor="border-indigo-300" shadowColor="shadow-indigo-400" />
-        </div>
-      </div>
-      <StackedImagesExample />
     </div>
   )
 }

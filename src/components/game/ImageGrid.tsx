@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
+import Image from 'next/image'
 
 type ImageState = {
   selected: boolean
@@ -7,6 +8,7 @@ type ImageState = {
 
 type ImageGridProps = {
   shapes: number[]
+  // eslint-disable-next-line no-unused-vars
   onShapeSelect: (shapeId: number) => void
   selectedShapes: number[]
   correctShapes: number[]
@@ -15,6 +17,7 @@ type ImageGridProps = {
   clickEnabled: boolean
 }
 
+// eslint-disable-next-line no-unused-vars
 const useNumberKeys = (callback: (num: number) => void) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -32,7 +35,6 @@ export default function ImageGrid({ shapes, onShapeSelect, selectedShapes, corre
   const [images, setImages] = useState<ImageState[]>(
     Array(9).fill({ selected: false, status: 'none' })
   )
-  const [rightWrongMode, setRightWrongMode] = useState(false)
 
   useEffect(() => {
     setImages(shapes.map(shape => ({
@@ -52,10 +54,8 @@ export default function ImageGrid({ shapes, onShapeSelect, selectedShapes, corre
 
   const handleClick = useCallback((index: number) => {
     if (!clickEnabled) return
-    if (!rightWrongMode) {
-      toggleImage(index)
-    }
-  }, [rightWrongMode, toggleImage])
+    toggleImage(index)
+  }, [toggleImage, clickEnabled])
 
   return (
     <div className="container mx-auto p-4">
@@ -72,10 +72,12 @@ export default function ImageGrid({ shapes, onShapeSelect, selectedShapes, corre
             `}
             onClick={() => handleClick(index)}
           >
-            <img
+            <Image
               src={`/media/shapes/shape_${shapes[index]}.png`}
               alt={`Shape ${shapes[index]}`}
-              className="h-full w-full object-cover"
+              fill
+              className="object-cover"
+              priority
             />
             {/* <div className="absolute top-0 left-0 text-black text-xs">
               {"shape" + shapes[index]}

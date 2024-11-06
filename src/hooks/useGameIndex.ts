@@ -1,13 +1,12 @@
 import { useReadContract } from '@starknet-react/core'
-import { gameAbi } from '@/config/contracts'
-import { GAME_CONTRACT_ADDRESS } from '@/config/contracts'
+import { CONTRACTS } from '@/config'
 
 export function useGameIndex() {
   const { data: gameIndex, isLoading, error } = useReadContract({
     functionName: "getGameIndex",
     args: [],
-    abi: gameAbi,
-    address: GAME_CONTRACT_ADDRESS,
+    abi: CONTRACTS.GAME.ABI,
+    address: CONTRACTS.GAME.ADDRESS,
     watch: true,
   })
 
