@@ -6,6 +6,6 @@ export const SHAPES_CONFIG = {
 } as const
 
 export const ENVIRONMENT = {
-  PROD_URL: 'https://shapes.starknet.io',
+  PROD_URL: process.env.NEXT_PUBLIC_PROD_URL || 'https://shapes-game.xyz',
   IS_DEVELOPMENT: process.env.NODE_ENV === 'development'
 } as const 
