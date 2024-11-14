@@ -11,6 +11,7 @@ import {
 } from "@starknet-react/core";
 import { InjectedConnector } from "starknetkit/injected";
 import { WebWalletConnector } from "starknetkit/webwallet";
+import { ArgentMobileConnector } from "starknetkit/argentMobile";
 
 const getChains = (): Chain[] => {
   const network = process.env.NEXT_PUBLIC_STARKNET_NETWORK || 'sepolia';
@@ -39,7 +40,14 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const connectors = [
     new InjectedConnector({ options: { id: "argentX", name: "Argent X" }}),
     new InjectedConnector({ options: { id: "braavos", name: "Braavos" }}),
-    new WebWalletConnector({ url: process.env.NEXT_PUBLIC_WEB_WALLET_URL })
+    new WebWalletConnector({ url: process.env.NEXT_PUBLIC_WEB_WALLET_URL }),
+    ArgentMobileConnector.init({
+      options: {
+        dappName: "Shapes",
+        projectId: process.env.NEXT_PUBLIC_ARGENT_MOBILE_PROJECT_ID,
+        url: "https://shapes.xyz"
+      }
+    })
   ];
  
   const starknetConnectors = connectors as unknown as Connector[]
